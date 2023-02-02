@@ -14,7 +14,7 @@ Please follow [Windows Subsystem for Linux Installation (WSL)](https://docs.dock
 - **Windows**: Windows Subsystem for Linux (WSL). Please follow [Windows Subsystem for Linux Installation (WSL)](https://docs.docker.com/docker-for-windows/wsl/) and [Using Docker in WSL 2](https://code.visualstudio.com/blogs/2020/03/02/docker-in-wsl2), to get started.
 
 ```bash
-git clone https://github.com/bgrinsted/postcode-parser && \
+git clone git@github.com:bgrinsted/postcode-parser.git && \
 cd postcode-parser && \
 docker build -t postcode-parser . && \
 docker run -v $(pwd)/data/input:/app/data/input -v $(pwd)/app/data/output -it --name postcode-parser-container postcode-parser	
