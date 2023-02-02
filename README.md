@@ -22,7 +22,7 @@ docker run -v $(pwd)/data/input:/app/data/input -v $(pwd)/app/data/output -it --
 
 ## Option 2: macOS, Linux or WSL (for Windows):
 1. Install Python 3.9
-2. Open a terminal on local machine
+2. Open a terminal
 3. Clone this repository: `git clone git@github.com:bgrinsted/postcode-parser.git`
 4. Create virtual environment: `python -m venv venv`
 5. Activate virtual env: `source venv/bin/activate`
@@ -32,16 +32,18 @@ docker run -v $(pwd)/data/input:/app/data/input -v $(pwd)/app/data/output -it --
 # The Brief 
 
 ### Source data:
-Presented with two CSV files containing a collection of strings representing UK postcodes.
+Presented with two CSV files containing a collection of strings representing UK postcodes:
 1. InputFile.csv: unvalidated postcode data.
 2. LondonPostcodes.csv: clean and validated postcodes for London districts.
 
 ### Task:
-Categorise the values in InputFile.csv as:
-1. Invalid postcodes.
+Categorise the values in InputFile.csv and write to separate CSVs:
+1. Invalid postcodes (invalid.csv).
 2. Valid postcodes:
-    - London (exists in LondonPostcodes.csv)
-    - not-London
+    - London (valid_london.csv)
+    - not-London (valid_notlondon.csv)
+   
+Note: A postcode is considered to be in London if present in the file LondonPostcodes.csv
 
 ### Approach:
 1. Read data from `data/input` directory
@@ -57,6 +59,7 @@ Categorise the values in InputFile.csv as:
 ### Assumptions:
 1. This script is only concerned with validating the structure of the string.
 2. A string can be in a valid UK-postcode format, though may not exist according to postal services.
-3. A postcode containing no whitespace is considered invalid.
-4. Standardisation of whitespace is acceptable and preferable.
+3. A postcode containing no internal (or embedded) whitespace is considered invalid.
+   - e.g. "N133TP" is invalid. "N13 3TP" is valid.
+4. Standardisation of whitespace is acceptable.
 5. Duplicate string in InputFile.csv should be ignored.
